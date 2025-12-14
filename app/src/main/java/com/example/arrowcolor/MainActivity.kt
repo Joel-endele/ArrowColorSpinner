@@ -1,6 +1,8 @@
 package com.example.arrowcolor
 
+import com.example.arrowcolor.R
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
@@ -10,6 +12,29 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.atan2
 
 class MainActivity : AppCompatActivity() {
+    private fun setupPaletteDot(view: View, color: Int) {
+        val bg = view.background.mutate() as android.graphics.drawable.GradientDrawable
+        bg.setColor(color)
+
+        view.setOnClickListener {
+            if (started || usedColors.contains(color)) return@setOnClickListener
+
+            selectedColor = color
+
+            // alle normal
+            listOf(
+                R.id.red, R.id.green, R.id.blue, R.id.yellow,
+                R.id.purple, R.id.gray, R.id.white
+            ).forEach {
+                findViewById<View>(it).scaleX = 1f
+                findViewById<View>(it).scaleY = 1f
+            }
+
+            // ausgewählter größer
+            view.animate().scaleX(1.3f).scaleY(1.3f).setDuration(150).start()
+        }
+    }
+
 
     data class ColorPoint(
         val x: Float,
@@ -27,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     private var index = 0
     private var currentRotation = 0f
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -58,6 +84,27 @@ class MainActivity : AppCompatActivity() {
 
                 points.add(ColorPoint(event.x, event.y, selectedColor, dot))
                 usedColors.add(selectedColor)
+
+                val paletteView = when (selectedColor) {
+                    Color.RED -> R.id.red
+                    Color.GREEN -> R.id.green
+                    Color.BLUE -> R.id.blue
+                    Color.YELLOW -> R.id.yellow
+                    Color.MAGENTA -> R.id.purple
+                    Color.GRAY -> R.id.gray
+                    Color.WHITE -> R.id.white
+                    else -> null
+                }
+
+                paletteView?.let {
+                    val v = findViewById<View>(it)
+                    val bg = v.background.mutate() as android.graphics.drawable.GradientDrawable
+                    bg.setColor(Color.LTGRAY)
+                    v.alpha = 0.4f
+                    v.scaleX = 1f
+                    v.scaleY = 1f
+                }
+
             }
             true
         }
@@ -77,6 +124,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         resetBtn.setOnClickListener {
+            listOf(
+                Pair(R.id.red, Color.RED),
+                Pair(R.id.green, Color.GREEN),
+                Pair(R.id.blue, Color.BLUE),
+                Pair(R.id.yellow, Color.YELLOW),
+                Pair(R.id.purple, Color.MAGENTA),
+                Pair(R.id.gray, Color.GRAY),
+                Pair(R.id.white, Color.WHITE)
+            ).forEach { (id, color) ->
+                val v = findViewById<View>(id)
+                val bg = v.background.mutate() as android.graphics.drawable.GradientDrawable
+                bg.setColor(color)
+                v.alpha = 1f
+                v.scaleX = 1f
+                v.scaleY = 1f
+            }
+
             points.forEach { (root as android.widget.FrameLayout).removeView(it.view) }
             points.clear()
             usedColors.clear()
@@ -89,13 +153,14 @@ class MainActivity : AppCompatActivity() {
             arrow.rotation = 0f
         }
 
-        findViewById<View>(R.id.red).setOnClickListener { selectedColor = Color.RED }
-        findViewById<View>(R.id.green).setOnClickListener { selectedColor = Color.GREEN }
-        findViewById<View>(R.id.blue).setOnClickListener { selectedColor = Color.BLUE }
-        findViewById<View>(R.id.yellow).setOnClickListener { selectedColor = Color.YELLOW }
-        findViewById<View>(R.id.purple).setOnClickListener { selectedColor = Color.MAGENTA }
-        findViewById<View>(R.id.gray).setOnClickListener { selectedColor = Color.GRAY }
-        findViewById<View>(R.id.white).setOnClickListener { selectedColor = Color.WHITE }
+        setupPaletteDot(findViewById(R.id.red), Color.RED)
+        setupPaletteDot(findViewById(R.id.green), Color.GREEN)
+        setupPaletteDot(findViewById(R.id.blue), Color.BLUE)
+        setupPaletteDot(findViewById(R.id.yellow), Color.YELLOW)
+        setupPaletteDot(findViewById(R.id.purple), Color.MAGENTA)
+        setupPaletteDot(findViewById(R.id.gray), Color.GRAY)
+        setupPaletteDot(findViewById(R.id.white), Color.WHITE)
+
     }
 
     private fun sortClockwise(root: View) {
