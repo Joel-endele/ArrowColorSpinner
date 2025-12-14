@@ -1,6 +1,5 @@
 package com.example.arrowcolor
 
-import com.example.arrowcolor.R
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -46,13 +45,16 @@ class MainActivity : AppCompatActivity() {
 
     private val points = mutableListOf<ColorPoint>()
     private val usedColors = mutableSetOf<Int>()
+    val ORANGE = 0xFFFF9800.toInt()
+    val BROWN = 0xFF8B4513.toInt()
+
 
     private var selectedColor = Color.RED
     private var started = false
     private var index = 0
     private var currentRotation = 0f
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -93,6 +95,8 @@ class MainActivity : AppCompatActivity() {
                     Color.MAGENTA -> R.id.purple
                     Color.GRAY -> R.id.gray
                     Color.WHITE -> R.id.white
+                    ORANGE -> R.id.orange
+                    BROWN -> R.id.brown
                     else -> null
                 }
 
@@ -131,7 +135,9 @@ class MainActivity : AppCompatActivity() {
                 Pair(R.id.yellow, Color.YELLOW),
                 Pair(R.id.purple, Color.MAGENTA),
                 Pair(R.id.gray, Color.GRAY),
-                Pair(R.id.white, Color.WHITE)
+                Pair(R.id.white, Color.WHITE),
+                Pair(R.id.orange, ORANGE),
+                Pair(R.id.brown, BROWN)
             ).forEach { (id, color) ->
                 val v = findViewById<View>(id)
                 val bg = v.background.mutate() as android.graphics.drawable.GradientDrawable
@@ -160,7 +166,8 @@ class MainActivity : AppCompatActivity() {
         setupPaletteDot(findViewById(R.id.purple), Color.MAGENTA)
         setupPaletteDot(findViewById(R.id.gray), Color.GRAY)
         setupPaletteDot(findViewById(R.id.white), Color.WHITE)
-
+        setupPaletteDot(findViewById(R.id.orange), ORANGE)
+        setupPaletteDot(findViewById(R.id.brown), BROWN)
     }
 
     private fun sortClockwise(root: View) {

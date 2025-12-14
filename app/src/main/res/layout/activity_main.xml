@@ -1,19 +1,22 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#444">
 
     <!-- Farbpalette oben -->
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/palette"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_gravity="top"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:flexWrap="wrap"
+        app:justifyContent="center"
+        app:alignItems="center">
 
-        <View
+
+    <View
             android:id="@+id/red"
             style="@style/ColorDot"
             android:layout_width="48dp"
@@ -54,7 +57,19 @@
             style="@style/ColorDot"
             android:layout_width="48dp"
             android:layout_height="48dp" />
-    </LinearLayout>
+
+        <View
+            android:id="@+id/orange"
+            style="@style/ColorDot"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <View
+            android:id="@+id/brown"
+            style="@style/ColorDot"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </com.google.android.flexbox.FlexboxLayout>
 
     <!-- Pfeil -->
     <ImageView
