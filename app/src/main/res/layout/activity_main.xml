@@ -47,6 +47,12 @@
             android:layout_height="48dp" />
 
         <View
+            android:id="@+id/magenta"
+            style="@style/ColorDot"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <View
             android:id="@+id/gray"
             style="@style/ColorDot"
             android:layout_width="48dp"
@@ -69,6 +75,7 @@
             style="@style/ColorDot"
             android:layout_width="48dp"
             android:layout_height="48dp" />
+
     </com.google.android.flexbox.FlexboxLayout>
 
     <!-- Pfeil -->

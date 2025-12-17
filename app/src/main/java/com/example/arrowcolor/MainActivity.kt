@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
 
     private val points = mutableListOf<ColorPoint>()
     private val usedColors = mutableSetOf<Int>()
-    val ORANGE = 0xFFFF9800.toInt()
-    val BROWN = 0xFF8B4513.toInt()
-
-
+    val ORANGE = 0xFFFFA500.toInt()
+    val BROWN = 0xFF964B00.toInt()
+    val PURPLE = 0xFF800080.toInt()
+    val GRAY = 0xFF686868.toInt()
     private var selectedColor = Color.RED
     private var started = false
     private var index = 0
@@ -92,8 +92,9 @@ class MainActivity : AppCompatActivity() {
                     Color.GREEN -> R.id.green
                     Color.BLUE -> R.id.blue
                     Color.YELLOW -> R.id.yellow
-                    Color.MAGENTA -> R.id.purple
-                    Color.GRAY -> R.id.gray
+                    Color.MAGENTA -> R.id.magenta
+                    PURPLE -> R.id.purple
+                    GRAY -> R.id.gray
                     Color.WHITE -> R.id.white
                     ORANGE -> R.id.orange
                     BROWN -> R.id.brown
@@ -133,8 +134,9 @@ class MainActivity : AppCompatActivity() {
                 Pair(R.id.green, Color.GREEN),
                 Pair(R.id.blue, Color.BLUE),
                 Pair(R.id.yellow, Color.YELLOW),
-                Pair(R.id.purple, Color.MAGENTA),
-                Pair(R.id.gray, Color.GRAY),
+                Pair(R.id.magenta, Color.MAGENTA),
+                Pair(R.id.purple, PURPLE),
+                Pair(R.id.gray, GRAY),
                 Pair(R.id.white, Color.WHITE),
                 Pair(R.id.orange, ORANGE),
                 Pair(R.id.brown, BROWN)
@@ -163,8 +165,9 @@ class MainActivity : AppCompatActivity() {
         setupPaletteDot(findViewById(R.id.green), Color.GREEN)
         setupPaletteDot(findViewById(R.id.blue), Color.BLUE)
         setupPaletteDot(findViewById(R.id.yellow), Color.YELLOW)
-        setupPaletteDot(findViewById(R.id.purple), Color.MAGENTA)
-        setupPaletteDot(findViewById(R.id.gray), Color.GRAY)
+        setupPaletteDot(findViewById(R.id.magenta), Color.MAGENTA)
+        setupPaletteDot(findViewById(R.id.purple), PURPLE)
+        setupPaletteDot(findViewById(R.id.gray), GRAY)
         setupPaletteDot(findViewById(R.id.white), Color.WHITE)
         setupPaletteDot(findViewById(R.id.orange), ORANGE)
         setupPaletteDot(findViewById(R.id.brown), BROWN)
